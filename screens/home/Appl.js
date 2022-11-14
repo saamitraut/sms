@@ -66,7 +66,7 @@ class App extends Component {
     getOneTimeLocation(this.state.engineerId, this.state.userid);
 
     this.getData(
-      this.state.engineerId,
+      this.state.userid,
       this.state.status,
       this.state.CallLogId,
       this.state.SubscriberName,
@@ -127,7 +127,7 @@ class App extends Component {
                 this.setState({ status: newstatus }, () => {
                   // console.log(this.state.status);
                   this.getData(
-                    this.state.engineerId,
+                    this.state.userid,
                     this.state.status,
                     this.state.CallLogId,
                     this.state.SubscriberName,
@@ -174,7 +174,7 @@ class App extends Component {
                 // console.log(date);
                 this.setState({ open: false, updatedon: date }, () => {
                   this.getData(
-                    this.state.engineerId,
+                    this.state.userid,
                     this.state.status,
                     this.state.CallLogId,
                     this.state.SubscriberName,
@@ -263,7 +263,7 @@ class App extends Component {
                   onChangeText={text => {
                     this.setState({ CallLogId: text }, () =>
                       this.getData(
-                        this.state.engineerId,
+                        this.state.userid,
                         this.state.status,
                         this.state.CallLogId,
                         this.state.SubscriberName,
@@ -279,7 +279,7 @@ class App extends Component {
                   onChangeText={text => {
                     this.setState({ SubscriberName: text }, () =>
                       this.getData(
-                        this.state.engineerId,
+                        this.state.userid,
                         this.state.status,
                         this.state.CallLogId,
                         this.state.SubscriberName,
@@ -297,7 +297,7 @@ class App extends Component {
                   onChangeText={text => {
                     this.setState({ CustomerId: text }, () =>
                       this.getData(
-                        this.state.engineerId,
+                        this.state.userid,
                         this.state.status,
                         this.state.CallLogId,
                         this.state.SubscriberName,
@@ -314,7 +314,7 @@ class App extends Component {
                   onChangeText={text => {
                     this.setState({ MobileNo: text }, () =>
                       this.getData(
-                        this.state.engineerId,
+                        this.state.userid,
                         this.state.status,
                         this.state.CallLogId,
                         this.state.SubscriberName,
@@ -514,7 +514,7 @@ class App extends Component {
   // componentWillUnmount = () => {Geolocation.clearWatch(this.watchID);};
 
   getData = (
-    EngineerId,
+    accessid,
     status,
     CallLogId,
     SubscriberName,
@@ -525,7 +525,7 @@ class App extends Component {
     this.hideError();
 
     var data = new FormData();
-    data.append('EngineerId', EngineerId);
+    data.append('accessid', accessid);
     data.append('status', status);
     data.append('CallLogId', CallLogId);
     data.append('SubscriberName', SubscriberName);
@@ -536,7 +536,8 @@ class App extends Component {
     if (MobileNo !== null) {
       data.append('MobileNo', MobileNo);
     }
-    const getCallsUrl = `${Globals.BASE_URL}api/getCallDetails.php`;
+
+    const getCallsUrl = `${Globals.BASE_URL}api/getCallDetails2.php`;
 
     fetch(getCallsUrl, {
       method: 'POST',

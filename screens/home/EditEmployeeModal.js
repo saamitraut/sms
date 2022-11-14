@@ -196,6 +196,21 @@ class EditEmployeeModal extends Component {
             if (res.status) {
               this.props.closeModal();
               this.props.updateEmployee(res.data);
+              var formdata = new FormData();
+              formdata.append("msg", "CRM TEAM");
+              formdata.append("body", res.data.CallLogId + " is updated ");
+              formdata.append("uri", res.data.uri);
+
+              var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+              };
+
+              fetch("https://seatvnetwork.com/notification/api/sendNotification/icc", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
               // alert(res.msg);
             } else {
               alert(res.msg);
