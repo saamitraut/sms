@@ -173,7 +173,7 @@ class EditEmployeeModal extends Component {
         data.append('MobileNo', this.state.MobileNo);
         data.append('CallLogId', this.state.CallLogId);
         data.append('SubscriberName', this.state.SubscriberName);
-        console.log(data);
+        // console.log(data);
         // return;
         const updateAPIURL = `${Globals.BASE_URL}api/updateCallDetails.php`;
 
@@ -209,7 +209,9 @@ class EditEmployeeModal extends Component {
 
               fetch("https://seatvnetwork.com/notification/api/sendNotification/icc", requestOptions)
                 .then(response => response.text())
-                .then(result => console.log(result))
+                .then(result => {
+                  // console.log(result)
+                })
                 .catch(error => console.log('error', error));
               // alert(res.msg);
             } else {
@@ -254,7 +256,7 @@ class EditEmployeeModal extends Component {
       loggedinDetails,
       uri,
     } = this.state;
-    // console.log(loggedinDetails);
+    // console.log(this.state.loading);
     // console.log('loggedinDetails home/editemployeemodel line 212');
 
     return (
