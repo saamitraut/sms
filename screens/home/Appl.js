@@ -435,6 +435,32 @@ class App extends Component {
                         <Icon1 style={styles.buttonText} name="eye"></Icon1>
                       )}
                     </TouchableOpacity>
+
+                    {!call.accepted ? <TouchableOpacity
+                      onPress={() => {
+                        // console.log(this.state.status);
+                        var formdata = new FormData();
+                        formdata.append("complaintid", call.complaintid);
+                        formdata.append("lattitude", "1.000");
+                        formdata.append("longitude", "1.000");
+                        formdata.append("updatedby", this.state.userid);
+
+                        var requestOptions = {
+                          method: 'POST',
+                          body: formdata,
+                          redirect: 'follow'
+                        };
+
+                        fetch("http://bill.seatvnetwork.com:8081/sla/api/acceptcall.php", requestOptions)
+                          .then(response => response.text())
+                          .then(result => { if (result) { alert('call accepted') } })
+                          .catch(error => console.log('error', error));
+                      }}
+                      style={styles.button}>
+                      <Text style={styles.buttonText}>
+                        Accept
+                      </Text>
+                    </TouchableOpacity> : null}
                   </View>
                 </View>
               ))}

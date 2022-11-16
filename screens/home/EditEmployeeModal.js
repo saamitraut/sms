@@ -207,7 +207,7 @@ class EditEmployeeModal extends Component {
                 redirect: 'follow'
               };
 
-              fetch("https://seatvnetwork.com/notification/api/sendNotification/icc", requestOptions)
+              fetch(`https://seatvnetwork.com/notification/api/sendNotification/${Globals.client}`, requestOptions)
                 .then(response => response.text())
                 .then(result => {
                   // console.log(result)
