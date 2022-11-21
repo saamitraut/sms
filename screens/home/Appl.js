@@ -427,12 +427,14 @@ class App extends Component {
                         this.toggleEditEmployeeModal();
                         this.setState({ selectedEmployee: call });
                       }}
-                      style={{ ...styles.button, marginVertical: 0 }}>
+                      style={{ ...styles.button }}>
                       {/* <Text style={styles.buttonText}>{this.state.status}</Text> */}
-                      {this.state.status ? (
-                        <Icon1 style={styles.buttonText} name="edit-3"></Icon1>
+                      {this.state.status && call.reached ? (
+                        // <Icon1 style={styles.buttonText} name="edit-3"></Icon1>
+                        <Text style={styles.buttonText}>Update</Text>
                       ) : (
-                        <Icon1 style={styles.buttonText} name="eye"></Icon1>
+                        // <Icon1 style={styles.buttonText} name="eye"></Icon1>
+                        <></>// <Text style={styles.buttonText}>View</Text>
                       )}
                     </TouchableOpacity>
 
@@ -441,8 +443,6 @@ class App extends Component {
                         // console.log(this.state.status);
                         var formdata = new FormData();
                         formdata.append("complaintid", call.complaintid);
-                        formdata.append("lattitude", "1.000");
-                        formdata.append("longitude", "1.000");
                         formdata.append("updatedby", this.state.userid);
 
                         var requestOptions = {
@@ -451,19 +451,71 @@ class App extends Component {
                           redirect: 'follow'
                         };
 
-                        fetch("http://bill.seatvnetwork.com:8081/sla/api/acceptcall.php", requestOptions)
-                          .then(response => response.text())
-                          .then(result => { if (result) { alert('call accepted') } })
+                        fetch(`${Globals.BASE_URL}api/acceptcall.php`, requestOptions)
+                          .then(response => response.json())
+                          .then(result => {
+                            // console.log(result);
+
+                            if (result.status) {
+                              this.setState(
+                                {
+                                  calls: this.state.calls.map(call =>
+                                    call.complaintid == result.data.complaintid ? result.data : call,
+                                  ),
+                                },)
+                            } else {
+                              alert(result.data.msg)
+                            }
+                          })
                           .catch(error => console.log('error', error));
                       }}
                       style={styles.button}>
                       <Text style={styles.buttonText}>
                         Accept
                       </Text>
-                    </TouchableOpacity> : null}
+                    </TouchableOpacity> : <Text style={styles.listItem}>Accepted</Text>}
+
+                    {call.accepted && !call.reached ? <TouchableOpacity style={styles.button} onPress={() => {
+                      var formdata = new FormData();
+
+                      formdata.append("complaintid", call.complaintid);
+                      formdata.append("updatedby", this.state.userid);
+
+                      var requestOptions = {
+                        method: 'POST',
+                        body: formdata,
+                        redirect: 'follow'
+                      };
+
+                      fetch(`${Globals.BASE_URL}api/reachedlocation.php`, requestOptions)
+                        .then(response => response.json())
+                        .then(result => {
+                          getOneTimeLocation(
+                            this.state.engineerId,
+                            this.state.userid,
+                            'reached',
+                          )
+                          console.log(result)
+
+                          if (result.status) {
+                            this.setState(
+                              {
+                                calls: this.state.calls.map(call =>
+                                  call.complaintid == result.data.complaintid ? result.data : call,
+                                ),
+                              },)
+                          } else {
+                            alert(result.data.msg)
+                          }
+
+                        })
+                        .catch(error => console.log('error', error));
+
+                    }}><Text style={styles.buttonText}>Reached</Text></TouchableOpacity> : null}
                   </View>
                 </View>
               ))}
+
               {isEditEmployeeModalOpen ? (
                 <EditEmployeeModal
                   isOpen={isEditEmployeeModalOpen}
@@ -677,7 +729,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 5,
-    marginVertical: 20,
+    marginVertical: 20, marginHorizontal: 10,
     alignSelf: 'flex-start',
     backgroundColor: '#6699cc',
   },
@@ -723,7 +775,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     fontSize: 16,
-    marginTop: 5,
+    marginTop: 5, marginHorizontal: 5,
     fontFamily: 'serif',
   },
   buttonContainer: {

@@ -197,10 +197,10 @@ class EditEmployeeModal extends Component {
               this.props.closeModal();
               this.props.updateEmployee(res.data);
               var formdata = new FormData();
-              formdata.append("msg", "CRM TEAM");
-              formdata.append("body", res.data.CallLogId + " is updated ");
+              formdata.append("msg", res.data.CallLogId + " is updated ");
+              formdata.append("body", Reply);
               formdata.append("uri", res.data.uri);
-
+              console.log(formdata);
               var requestOptions = {
                 method: 'POST',
                 body: formdata,
