@@ -177,7 +177,7 @@ class EditEmployeeModal extends Component {
         // return;
         const updateAPIURL = `${Globals.BASE_URL}api/updateCallDetails.php`;
 
-        // console.log(data);
+        // console.log(updateAPIURL);
         fetch(updateAPIURL, {
           method: 'POST',
           body: data,
@@ -453,9 +453,12 @@ class EditEmployeeModal extends Component {
                           ...styles.button,
                           marginVertical: 0,
                           backgroundColor: '#034f84',
-                        }}
-                        //
-                        onPress={() => this.setState({ status: 0 })}>
+                        }}                        //
+                        onPress={() => {
+                          // 
+                          alert('We dont recommend you to close the call. Let CRM guys do it.');
+                          // this.setState({ status: 0 })
+                        }}>
                         <Text style={styles.buttonText}>OPEN</Text>
                       </TouchableOpacity>
                     ) : (
