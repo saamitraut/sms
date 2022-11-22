@@ -342,7 +342,6 @@ class App extends Component {
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() => {
-
                     var formdata = new FormData();
                     formdata.append("msg", "Warning");
                     formdata.append("body", this.state.warning);
@@ -353,8 +352,8 @@ class App extends Component {
                       redirect: 'follow'
                     };
 
-                    fetch("https://seatvnetwork.com/notification/api/sendNotification", requestOptions)
-                      .then(response => response.text())
+                    fetch("https://seatvnetwork.com/notification/api/sendNotification/seatv", requestOptions)
+                      .then(response => response.json())
                       .then(result => console.log('result'))
                       .catch(error => console.log('error', error));
                   }}>
