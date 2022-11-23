@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
+  ImageBackground, TextInput
 } from 'react-native';
 import Dashboard from 'react-native-dashboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -195,6 +195,40 @@ class Home2 extends Component {
             style={styles.button}>
             <Icon style={styles.buttonText} name="refresh" />
           </TouchableOpacity>
+
+          <View>
+            <TextInput
+              defaultValue={''}
+              multiline
+              numberOfLines={3}
+              style={styles.textBox}
+              onChangeText={text => {
+                this.setState({ warning: text }, () => { }  // console.log(this.state.warning),
+                );
+              }}
+              placeholder="यहां वह चेतावनी लिखें जिसे आप भेजना चाहते हैं"
+            />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                var formdata = new FormData();
+                formdata.append("msg", "Warning");
+                formdata.append("body", this.state.warning);
+
+                var requestOptions = {
+                  method: 'POST',
+                  body: formdata,
+                  redirect: 'follow'
+                };
+
+                fetch("https://seatvnetwork.com/notification/api/sendNotification/seatv", requestOptions)
+                  .then(response => response.json())
+                  .then(result => console.log('result'))
+                  .catch(error => console.log('error', error));
+              }}>
+              <Text style={styles.buttonText}>SendMessage</Text>
+            </TouchableOpacity>
+          </View>
           <Dashboard
             data={this.data}
             background={true}
@@ -229,5 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+
+  textBox: { fontSize: 19, fontFamily: 'serif', fontWeight: 'bold' },
 });
 export default Home2;

@@ -117,7 +117,8 @@ class App extends Component {
               styles.container,
               {
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexWrap: "wrap",
+                justifyContent: 'space-between'
               },
             ]}>
             <TouchableOpacity
@@ -187,13 +188,7 @@ class App extends Component {
               }}
             />
             {/* <DatePicker2 update={this.update} /> */}
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                getOneTimeLocation(this.state.engineerId, this.state.userid);
-              }}>
-              <Text style={styles.buttonText}>Location</Text>
-            </TouchableOpacity>
+
           </View>
 
           <View
@@ -204,6 +199,13 @@ class App extends Component {
                 justifyContent: 'space-between',
               },
             ]}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                getOneTimeLocation(this.state.engineerId, this.state.userid);
+              }}>
+              <Text style={styles.buttonText}>Location</Text>
+            </TouchableOpacity>
             {this.state.loggedinForTheday.cnt ? (
               <>
                 {/* <Text style={styles.listItem2}>तुम्ही आज लॉग इन आहात</Text> */}

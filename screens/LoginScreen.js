@@ -117,8 +117,9 @@ const LoginScreen = props => {
             <View style={styles.logo}>
               <Image
                 style={styles.image}
-                source={{ uri: 'https://medianucleus.com/images/logo1.png' }}
-              // source={require(`../assets/images/SEATVNETWORK.png`)}
+                // source={{ uri: 'https://medianucleus.com/images/logo1.png' }}
+                // source={require(`../assets/images/logo.png`)}
+                source={{ uri: 'https://seatvnetwork.com/images/seatvlogo.png' }}
               />
             </View>
             <View>
