@@ -12,30 +12,30 @@ async function requestLocationPermission(PermissionDenied) {
     // subscribeLocationLocation();
   } else {
     try {
-      // const granted = await PermissionsAndroid.request(
-      //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      //   {
-      //     title: 'Location Access Required',
-      //     message: 'This App needs to Access your location',
-      //     buttonNeutral: 'Ask Me Later',
-      //     buttonNegative: 'Cancel',
-      //     buttonPositive: 'OK',
-      //   },
-      // );
-      // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      //   //To Check, If Permission is granted
-      //   //   this.getOneTimeLocation();
-      //   //   this.subscribeLocationLocation();
-      // } else {
-      //   PermissionDenied;
-      // }
-      PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
+      const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-      ]).then(result => {
-        // console.log(result);
-      });
+        {
+          title: 'Location Access Required',
+          message: 'This App needs to Access your location',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        //To Check, If Permission is granted
+        //   this.getOneTimeLocation();
+        //   this.subscribeLocationLocation();
+      } else {
+        PermissionDenied;
+      }
+      // PermissionsAndroid.requestMultiple([
+      //   PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
+      //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      //   PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      // ]).then(result => {
+      //   // console.log(result);
+      // });
     } catch (err) {
       console.warn(err);
     }

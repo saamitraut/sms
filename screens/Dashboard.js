@@ -12,14 +12,14 @@ import Icon1 from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import Globals from '../Globals';
+
 class Home2 extends Component {
+  // 
   constructor(props) {
     super(props);
-    //
-    // console.log('props on line 25 scrreens/Home.js');
     const { loggedinDetails } = props.route.params;
     this.state = {
-      count: 0,
+      count: 0, messages: [],
       loggedinDetails: loggedinDetails,
       loggedinForTheday: false,
       engineerId: loggedinDetails.engineerId,
@@ -167,8 +167,8 @@ class Home2 extends Component {
     const { navigate } = this.props.navigation;
     const { loggedinDetails } = this.props.route.params;
     const { engineerId, email, fullName, userid } = loggedinDetails;
+    //
     return (
-      //
       <View style={styles.container}>
         <ImageBackground
           imageStyle={{ opacity: 0.5 }}
@@ -190,12 +190,13 @@ class Home2 extends Component {
               </Text>
             )}
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => this.loggedinForThedayFunc()}
             style={styles.button}>
             <Icon style={styles.buttonText} name="refresh" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
+          {this.state.messages.map((message, index) => <Text key={index} style={styles.chatcontainer}>{message}</Text>)}
           <View>
             <TextInput
               defaultValue={''}
@@ -206,8 +207,10 @@ class Home2 extends Component {
                 this.setState({ warning: text }, () => { }  // console.log(this.state.warning),
                 );
               }}
+              value={this.state.warning}
               placeholder="यहां वह चेतावनी लिखें जिसे आप भेजना चाहते हैं"
             />
+
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -223,7 +226,15 @@ class Home2 extends Component {
 
                 fetch("https://seatvnetwork.com/notification/api/sendNotification/seatv", requestOptions)
                   .then(response => response.json())
-                  .then(result => console.log('result'))
+                  .then(result => {
+                    console.log('result');
+                    let messagescopy = this.state.messages;
+                    messagescopy.push(this.state.warning);
+
+                    this.setState({ messages: messagescopy }, () => {
+                      this.setState({ warning: '' });
+                    })
+                  })
                   .catch(error => console.log('error', error));
               }}>
               <Text style={styles.buttonText}>SendMessage</Text>
@@ -263,7 +274,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-
+  name: {
+    fontWeight: 'bold',
+    fontSize: 19,
+    fontFamily: 'serif',
+    fontStyle: 'italic',
+    color: '#34282C',
+    textDecorationLine: 'underline',
+    marginTop: 5,
+  },
   textBox: { fontSize: 19, fontFamily: 'serif', fontWeight: 'bold' },
+
+  chatcontainer: {
+    backgroundColor: '#f1f1f1',
+    borderWidth: 0.1,
+    borderRadius: 5,
+    padding: 10,
+    margin: 5
+  }
 });
+
 export default Home2;
