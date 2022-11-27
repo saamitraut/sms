@@ -78,7 +78,7 @@ class App extends Component {
     var data = new FormData();
     data.append('EngineerId', this.state.engineerId);
 
-    const Url = `${Globals.BASE_URL}api/getLoginDetails.php`;
+    const Url = `${Globals.BASE_URL}getLoginDetails.php`;
     fetch(Url, {
       method: 'POST',
       body: data,
@@ -452,7 +452,7 @@ class App extends Component {
                           redirect: 'follow'
                         };
 
-                        fetch(`${Globals.BASE_URL}api/acceptcall.php`, requestOptions)
+                        fetch(`${Globals.BASE_URL}acceptcall.php`, requestOptions)
                           .then(response => response.json())
                           .then(result => {
                             // console.log(result);
@@ -488,7 +488,7 @@ class App extends Component {
                         redirect: 'follow'
                       };
 
-                      fetch(`${Globals.BASE_URL}api/reachedlocation.php`, requestOptions)
+                      fetch(`${Globals.BASE_URL}reachedlocation.php`, requestOptions)
                         .then(response => response.json())
                         .then(result => {
                           getOneTimeLocation(
@@ -585,7 +585,7 @@ class App extends Component {
         }
       });
 
-      xhr.open('POST', `${Globals.BASE_URL}api/savelocation.php`);
+      xhr.open('POST', `${Globals.BASE_URL}savelocation.php`);
       xhr.send(data);
     });
   };
@@ -616,7 +616,7 @@ class App extends Component {
       data.append('MobileNo', MobileNo);
     }
 
-    const getCallsUrl = `${Globals.BASE_URL}api/getCallDetails2.php`;
+    const getCallsUrl = `${Globals.BASE_URL}getCallDetails2.php`;
 
     fetch(getCallsUrl, {
       method: 'POST',

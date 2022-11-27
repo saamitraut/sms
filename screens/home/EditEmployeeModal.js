@@ -114,7 +114,7 @@ class EditEmployeeModal extends Component {
     data.append('SubscriberName', this.state.SubscriberName);
     console.log(data);
 
-    const InsertAPIURL = `${Globals.BASE_URL}api/call_verification.php`;
+    const InsertAPIURL = `${Globals.BASE_URL}call_verification.php`;
 
     fetch(InsertAPIURL, {
       method: 'POST',
@@ -142,6 +142,7 @@ class EditEmployeeModal extends Component {
   updateEmployee = () => {
     // console.log('state in updateEmployee');// console.log(this.state);// return;// alert(JSON.stringify(this.state));
 
+    const { engineerId, email, fullName, userid } = this.props.loggedinDetails;
     const { complaintid, Reply, status, CreatedBy, Replyid, OTP, OTP1 } =
       this.state;
     this.setState({ errorMessage: '', loading: true });
@@ -173,11 +174,11 @@ class EditEmployeeModal extends Component {
         data.append('MobileNo', this.state.MobileNo);
         data.append('CallLogId', this.state.CallLogId);
         data.append('SubscriberName', this.state.SubscriberName);
-        // console.log(data);
+        console.log(data);
         // return;
-        const updateAPIURL = `${Globals.BASE_URL}api/updateCallDetails.php`;
+        const updateAPIURL = `${Globals.BASE_URL}updateCallDetails.php`;
 
-        // console.log(updateAPIURL);
+        console.log(updateAPIURL);
         fetch(updateAPIURL, {
           method: 'POST',
           body: data,
@@ -197,7 +198,7 @@ class EditEmployeeModal extends Component {
               this.props.closeModal();
               this.props.updateEmployee(res.data);
               var formdata = new FormData();
-              formdata.append("msg", res.data.CallLogId + " is updated ");
+              formdata.append("msg", `${Globals.client} ${res.data.CallLogId} is updated by ${fullName}`);
               formdata.append("body", Reply);
               formdata.append("uri", res.data.uri);
               console.log(formdata);
@@ -456,8 +457,11 @@ class EditEmployeeModal extends Component {
                         }}                        //
                         onPress={() => {
                           // 
-                          alert('We dont recommend you to close the call. Let CRM guys do it.');
-                          // this.setState({ status: 0 })
+                          if (Globals.client == 'seatv') {
+                            alert('We dont recommend you to close the call. Let CRM guys do it.');
+                          } else {
+                            this.setState({ status: 0 })
+                          }
                         }}>
                         <Text style={styles.buttonText}>OPEN</Text>
                       </TouchableOpacity>
@@ -495,7 +499,7 @@ class EditEmployeeModal extends Component {
                             this.setState({
                               imagedetails: JSON.stringify(image),
                             });
-                            const InsertAPIURL = `${Globals.BASE_URL}api/imageupload.php`;
+                            const InsertAPIURL = `${Globals.BASE_URL}imageupload.php`;
                             var data = new FormData();
                             data.append('path', {
                               uri: image.path,

@@ -27,7 +27,7 @@ const formSchema = yup.object({
 const LoginScreen = props => {
   const { navigation } = props;
   const isFocused = useIsFocused();
-  const [email, setemail] = useState(() => 'rakeshg@iccnetwork.net');
+  const [email, setemail] = useState(() => 'pkadam9292@gmail.com');
 
   const loadProfile = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -62,11 +62,11 @@ const LoginScreen = props => {
         //
         initialValues={{
           email: email,
-          password: 'password',
+          password: '123456',
         }}
         validationSchema={formSchema}
         onSubmit={values => {
-          let loginAPIURL = `${Globals.BASE_URL}api/check.php`;
+          let loginAPIURL = `${Globals.BASE_URL}/check.php`;
           DeviceInfo.getUniqueId().then(deviceId => {
             // 
             var data = new FormData();
@@ -117,9 +117,9 @@ const LoginScreen = props => {
             <View style={styles.logo}>
               <Image
                 style={styles.image}
-                // source={{ uri: 'https://medianucleus.com/images/logo1.png' }}
-                // source={require(`../assets/images/logo.png`)}
-                source={{ uri: 'https://seatvnetwork.com/images/seatvlogo.png' }}
+                source={{ uri: 'https://medianucleus.com/images/logo1.png' }}
+              // source={require(`../assets/images/logo.png`)}
+              // source={{ uri: 'https://seatvnetwork.com/images/seatvlogo.png' }}
               />
             </View>
             <View>

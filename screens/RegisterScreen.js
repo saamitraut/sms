@@ -43,7 +43,7 @@ const RegisterScreen = navData => {
         onSubmit={values => {
           // console.log(values);
 
-          var InsertAPIURL = `${Globals.BASE_URL}api/insert.php`;
+          var InsertAPIURL = `${Globals.BASE_URL}insert.php`;
           DeviceInfo.getUniqueId().then(deviceId => {
             var data = new FormData();
 

@@ -80,7 +80,7 @@ function getOneTimeLocation(engineerId, userid, remark = '') {
               });
             }
           });
-          xhr.open('POST', `${Globals.BASE_URL}api/savelocation.php`);
+          xhr.open('POST', `${Globals.BASE_URL}savelocation.php`);
           xhr.send(data);
 
           function addZero(i) {

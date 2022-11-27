@@ -67,7 +67,7 @@ class Home2 extends Component {
   loggedinForThedayFunc = () => {
     var data = new FormData();
     data.append('EngineerId', this.state.engineerId);
-    const Url = `${Globals.BASE_URL}api/getLoginDetails.php`;
+    const Url = `${Globals.BASE_URL}getLoginDetails.php`;
 
     fetch(Url, {
       method: 'POST',
@@ -91,7 +91,7 @@ class Home2 extends Component {
     var data = new FormData();
     data.append('EngineerId', engineerId);
     data.append('status', 1);
-    const InsertAPIURL = `${Globals.BASE_URL}api/getCallDetails.php`;
+    const InsertAPIURL = `${Globals.BASE_URL}getCallDetails.php`;
     // console.log(InsertAPIURL);
     // console.log(data);
     fetch(InsertAPIURL, {
@@ -124,7 +124,7 @@ class Home2 extends Component {
     data.append('status', 0);
     data.append('updatedon', new Date().toISOString().slice(0, 10));
     // console.log(data);
-    const InsertAPIURL = `${Globals.BASE_URL}api/getCallDetails.php`;
+    const InsertAPIURL = `${Globals.BASE_URL}getCallDetails.php`;
 
     // console.log(this.data[0].name);
     fetch(InsertAPIURL, {
@@ -215,7 +215,7 @@ class Home2 extends Component {
               style={styles.button}
               onPress={() => {
                 var formdata = new FormData();
-                formdata.append("msg", "Warning");
+                formdata.append("msg", `${Globals.client} Warning ${fullName}`);
                 formdata.append("body", this.state.warning);
 
                 var requestOptions = {
@@ -224,7 +224,7 @@ class Home2 extends Component {
                   redirect: 'follow'
                 };
 
-                fetch("https://seatvnetwork.com/notification/api/sendNotification/seatv", requestOptions)
+                fetch(`https://seatvnetwork.com/notification/api/sendNotification/${Globals.client}`, requestOptions)
                   .then(response => response.json())
                   .then(result => {
                     console.log('result');
